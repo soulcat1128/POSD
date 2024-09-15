@@ -3,7 +3,7 @@ package org.ntut.posd2024f.shapes;
 public class Circle implements Shape {
     private double radius;
     public Circle(double radius) throws Exception {
-        if(radius < 0)
+        if(radius <= 0)
         {
             throw new Exception("It's not a circle!");
         }
@@ -19,7 +19,6 @@ public class Circle implements Shape {
     }
 
     public String toString() {
-        // return "Circle " + Double.toString(this.radius);
-        return String.format("Circle %.2f", this.radius);
+        return new String("Circle " + Double.valueOf(this.radius));
     }
 }

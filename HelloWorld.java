@@ -12,11 +12,13 @@ public class HelloWorld {
 
     public static void main(String[] args) throws Exception{
         double test = 1;
+        String a = "abc";
+        System.out.println(a.equals("abc"));
         
         // test t = new test();
         // t.show();
         // String str = "lili";
-        // System.out.println(str+"年齡是: ");
+        // System.out.println(str+"age is: ");
         // try{
         //     int age = Integer.parseInt("20L");
         //     System.out.println(age);
@@ -37,6 +39,6 @@ public class HelloWorld {
 class kyTest {
     public static void showTest()
     {
-        System.out.println("ky test");
+        // System.out.println("ky test");
     }
 }

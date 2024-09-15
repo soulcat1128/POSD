@@ -1,5 +1,5 @@
-Rectangle 0.5 1.5
-Circle 0.5
-Circle 1.0
-Triangle 3.0 4.0 5.0
-Rectangle 5.0 6.0
+Rectangle 5.00 6.00
+Triangle 3.00 4.00 5.00
+Circle 1.00
+Rectangle 0.50 1.50
+Circle 0.50
