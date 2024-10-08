@@ -23,16 +23,20 @@ public class TextedShape implements Shape {
     
     @Override
     public void add(Shape shape) {
+        throw new ShapeException("Illegal Operation");
     }
 
     @Override
     public Iterator<Shape> iterator() {
+        return new NullIterator();
     }
 
     public Shape getShape() {
+        return this.shape;
     }
 
     public String getText() {
+        return this.text;
     }
 
     @Override

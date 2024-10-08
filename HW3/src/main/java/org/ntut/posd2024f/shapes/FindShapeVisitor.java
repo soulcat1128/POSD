@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class FindShapeVisitor implements Visitor<List<Shape>> {
+    private List<Shape> result;
     public FindShapeVisitor(Predicate<Shape> condition) {
+        
     }
 
     @Override
@@ -36,5 +38,6 @@ public class FindShapeVisitor implements Visitor<List<Shape>> {
     }
 
     public List<Shape> getResult() {
+        return this.result;
     }
 }

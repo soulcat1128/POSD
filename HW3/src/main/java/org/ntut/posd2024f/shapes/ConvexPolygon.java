@@ -76,5 +76,6 @@ public class ConvexPolygon implements Shape {
     }
 
     public List<TwoDimensionalVector> getVectors() {
+        return this.vectors;
     }
 }

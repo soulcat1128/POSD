@@ -1,6 +1,8 @@
 package org.ntut.posd2024f.shapes;
 
 public class PrettyPrintVisitor implements Visitor<String>{
+    private String result;
+
     @Override
     public void visitCircle(Circle circle) {
     }
@@ -31,5 +33,6 @@ public class PrettyPrintVisitor implements Visitor<String>{
 
     @Override
     public String getResult() {
+        return this.result;
     }
 }
