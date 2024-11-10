@@ -23,12 +23,12 @@ public class ColoredShape implements Shape {
 
     @Override
     public void add(Shape shape) {
-        throw new ShapeException("Illegal Operation");
+        this.shape.add(shape);
     }
 
     @Override
     public Iterator<Shape> iterator() {
-        return new NullIterator();
+        return this.shape.iterator();
     }
 
     public Shape getShape() {
@@ -41,5 +41,6 @@ public class ColoredShape implements Shape {
 
     @Override
     public <T> void accept(Visitor<T> visitor) {
+        visitor.visitColoredShape(this);
     }
 }

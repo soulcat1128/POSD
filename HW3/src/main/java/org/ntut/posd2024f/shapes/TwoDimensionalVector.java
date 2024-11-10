@@ -25,8 +25,16 @@ public class TwoDimensionalVector {
         return new TwoDimensionalVector(this.x - v.x, this.y - v.y);
     }
 
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
     @Override
     public String toString() {
-        return "(" + this.x + ", " + this.y + ")";
+        return "[" +this.x + "," + this.y + "]";
     }
 }
