@@ -1,0 +1,6 @@
+CompoundShape {
+	Circle 3.0
+	CompoundShape {
+		Rectangle 3.0 4.0, color=RED
+	}
+}
