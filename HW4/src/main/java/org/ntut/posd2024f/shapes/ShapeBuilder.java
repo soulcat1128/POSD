@@ -148,7 +148,7 @@ public class ShapeBuilder {
             cs_index = csList.size() - 1;
         }
         else {
-            shapes.add(csList.get(cs_index));
+            shapes.add(csList.get(0));
             csList.clear();
         }
         
