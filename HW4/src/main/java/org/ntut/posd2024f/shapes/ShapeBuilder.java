@@ -7,6 +7,7 @@ public class ShapeBuilder {
 
     public List<Shape> shapes = new ArrayList<Shape>();
     private List<Shape> temp = new ArrayList<Shape>();
+    private List<Shape> csList = new ArrayList<Shape>();
     private int cs_index;
 
     public ShapeBuilder() {
@@ -27,11 +28,10 @@ public class ShapeBuilder {
         else if (text != null) {
             circle = new TextedShape(circle, text);
         }
-        if (temp.size() > 0) {
+        if (csList.size() > 0) {
             temp.add(circle);
         }
         else {
-
             shapes.add(circle);
         }
     }
@@ -54,7 +54,7 @@ public class ShapeBuilder {
             rectangle = new TextedShape(rectangle, text);
         }
 
-        if (temp.size() > 0) {
+        if (csList.size() > 0) {
             temp.add(rectangle);
         }
         else {
@@ -81,7 +81,7 @@ public class ShapeBuilder {
             triangle = new TextedShape(triangle, text);
         }
 
-        if (temp.size() > 0) {
+        if (csList.size() > 0) {
             temp.add(triangle);
         }
         else {
@@ -109,7 +109,7 @@ public class ShapeBuilder {
             convexPolygon = new TextedShape(convexPolygon, text);
         }
 
-        if (temp.size() > 0) {
+        if (csList.size() > 0) {
             temp.add(convexPolygon);
         }
         else {
@@ -131,34 +131,27 @@ public class ShapeBuilder {
         else if (text != null) {
             compoundShape = new TextedShape(compoundShape, text);
         }
+        csList.add(compoundShape);
 
-        temp.add(compoundShape);
-        cs_index = temp.size() - 1;
+        cs_index = csList.size() - 1;
     }
 
     public void endBuildCompoundShape() {
         
         // 把 cs_index 的 compound shape, 從後面開始直到 cs_index + 1, 依序加入到 cs_index 的 compound shape 裡, 並且移除已經被加入到 compound shape 裡的 shape
         for (int i = temp.size() - 1; i > cs_index; i--) {
-            ((CompoundShape)temp.get(cs_index)).add(temp.get(i));
+            ((CompoundShape)csList.get(cs_index)).add(temp.get(i));
             temp.remove(i);
         }
-
-        if (temp.size() == 1)
-        {
-            shapes.add(temp.get(0));
-            temp.clear();
+        if (csList.size() > 1) {
+            temp.add(csList.get(cs_index));
+            cs_index = csList.size() - 1;
         }
-        else
-        {
-            // 從後開始找 compound shape的位置(不包含cs_index), 來更新 cs_index
-            for (int i = cs_index - 1; i > -1 ; i--) {
-                if (temp.get(i) instanceof CompoundShape) {
-                    cs_index = i;
-                    break;
-                }
-            }
+        else {
+            shapes.add(csList.get(cs_index));
+            csList.clear();
         }
+        
         System.out.println("endBuildCompoundShape");
     }
 
