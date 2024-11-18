@@ -9,13 +9,11 @@ import java.util.Scanner;
 public class ShapeParser {
     
     private ShapeBuilder shapeBuilder = new ShapeBuilder();
-    // private List<Shape> temp = new ArrayList<Shape>();
     private Scanner scanner;
-    
+    public int count = 0;  // count the number of CompoundShape
 
     // 使用 scanner 讀取檔案
     public ShapeParser(File file) {
-        System.out.println("start start start");
         try {
             scanner = new Scanner(file);
         } catch (Exception e) {
@@ -25,29 +23,35 @@ public class ShapeParser {
     
     public void parse() {
         while(scanner.hasNext()) {
-            String line = scanner.nextLine();
-            System.out.println("line: " + line);
+            String line = scanner.nextLine().trim();
             if (line.startsWith("Circle")) {
-                parseCircle(line,this.shapeBuilder);
+                parseCircle(line);
             }
             else if (line.startsWith("Rectangle")) {
-                parseRectangle(line, this.shapeBuilder);
+                parseRectangle(line);
             }
             else if (line.startsWith("Triangle")) {
-                parseVectorShape(line, this.shapeBuilder);
+                parseVectorShape(line);
             }
             else if (line.startsWith("ConvexPolygon")) {
-                parseVectorShape(line, this.shapeBuilder);
+                parseVectorShape(line);
             }
             else if (line.startsWith("CompoundShape")) {
-                parseCompoundShape(line, this.shapeBuilder);
+                parseCompoundShape(line);
             }
+            if (line.contains("}")) {
+                count--;
+                shapeBuilder.endBuildCompoundShape();
+            }
+        }
+
+        if (count != 0)
+        {
+            throw new IllegalArgumentException("Expected token '}'");
         }
     }
 
-    private void parseCircle(String line, ShapeBuilder shapeBuilder) {
-        // System.out.println("line: " + line);
-        // Circle radius=3.0, color=red, text=hello
+    private void parseCircle(String line) {
         String[] tokens = line.split(",");
         double radius = Double.parseDouble(tokens[0].split(" ")[1]);
         String color = null;
@@ -65,10 +69,13 @@ public class ShapeParser {
         shapeBuilder.buildCircle(radius, color, text);
     }
 
-    private void parseRectangle(String line, ShapeBuilder shapeBuilder)
+    private void parseRectangle(String line)
     {
-        // Rectangle 3.0 4.0, color=red, text=hello
         String[] tokens = line.split(",");
+        System.out.println("tokens");
+        for (String token : tokens) {
+            System.out.println(token);
+        }
         double length = Double.parseDouble(tokens[0].split(" ")[1]);
         double width = Double.parseDouble(tokens[0].split(" ")[2]);
         String color = null;
@@ -86,7 +93,7 @@ public class ShapeParser {
         shapeBuilder.buildRectangle(length, width, color, text);
     }
 
-    private void parseVectorShape(String line, ShapeBuilder shapeBuilder)
+    private void parseVectorShape(String line)
     {
         // Triangle [4,0] [4,3] [0,3], color=red, text=hello you
         int n = 0;
@@ -99,15 +106,7 @@ public class ShapeParser {
             n = 4;
             tokens = line.replace("ConvexPolygon ", "").trim().split(", ");
         }
-        // System.out.println("tokens");
-        // for (String token : tokens) {
-        //     System.out.println(token);
-        // }
         String[] vector = tokens[0].split(" ");
-        // System.out.println("vector");
-        // for (String v : vector) {
-        //         System.out.println(v);
-        //     }
         String color = null;
         String text = null;
         List<TwoDimensionalVector> vectors = new ArrayList<TwoDimensionalVector>();
@@ -149,13 +148,8 @@ public class ShapeParser {
         }
     }
 
-    private void parseCompoundShape(String line, ShapeBuilder shapeBuilder) {
-        System.out.println("start parseCompoundShape");
+    private void parseCompoundShape(String line) {
         String[ ] tokens = line.split(", ");
-        // System.out.println("tokens");
-        // for (String token : tokens) {
-        //     System.out.println(token);
-        // }
         if (!line.contains("{"))
         {
             throw new IllegalArgumentException("Expected token '{'");
@@ -182,7 +176,6 @@ public class ShapeParser {
                 }
                 else if (tokens[i].trim().startsWith("text=")) {
                     text = tokens[i].split("=")[1];
-                    // text.substring(0, text.length() - 1);
                     String tmp = text.substring(text.length() - 2, text.length());
                     if (tmp.equals("{}"))
                     {
@@ -195,75 +188,11 @@ public class ShapeParser {
                 }
             }
         }
-
-        
-        // System.out.println("color: " + color);
-        // System.out.println("text: " + text);
-        ShapeBuilder compoundShapeBuilder = new ShapeBuilder();
-        compoundShapeBuilder.beginBuildCompoundShape(color, text);
-        while(scanner.hasNext())
-        {
-            String lineString = scanner.nextLine();
-            System.out.println("lineString: " + lineString);
-
-            lineString = lineString.trim();
-            // System.out.println("lineString: " + lineString);
-
-            if (lineString.startsWith("Circle"))
-            {
-                parseCircle(lineString, compoundShapeBuilder);
-            }
-            else if (lineString.startsWith("Rectangle"))
-            {
-                parseRectangle(lineString, compoundShapeBuilder);
-            }
-            else if (lineString.startsWith("Triangle"))
-            {
-                parseVectorShape(lineString, compoundShapeBuilder);
-            }
-            else if (lineString.startsWith("ConvexPolygon"))
-            {
-                parseVectorShape(lineString, compoundShapeBuilder);
-            }
-            else if (lineString.startsWith("CompoundShape"))
-            {
-                parseCompoundShape(lineString, compoundShapeBuilder);
-            }
-            if (lineString.contains("}"))
-            {
-                System.out.println("break");
-                break;
-            }
-        }
-        // for(Shape shape : compoundShapeBuilder.getResult())
-        // {
-        //     // System.out.println("shape: " + shape);
-        //     if (shape instanceof TextedShape)
-        //     {
-        //         TextedShape textedShape = (TextedShape) shape;
-        //         System.out.println(textedShape.getText());
-        //         ColoredShape coloredShape = (ColoredShape) textedShape.getShape();
-        //         System.out.println(coloredShape.getColor());
-        //     }
-        // }
-        compoundShapeBuilder.endBuildCompoundShape();
-        shapeBuilder.shapes.add(compoundShapeBuilder.getResult().get(0));
-        // shapeBuilder.add(compoundShapeBuilder.getResult());
+        shapeBuilder.beginBuildCompoundShape(color, text);
+        count++;
     }
  
     public List<Shape> getResult() {
-        System.out.println("getResult");
-        System.out.println("shape size: "+shapeBuilder.getResult().size());
-        for(Shape shape : shapeBuilder.getResult()) {
-            if (shape instanceof CompoundShape) {
-                CompoundShape compoundShape = (CompoundShape) shape;
-                System.out.println("compound shape size: "+compoundShape.getShapes().size());
-                for(Shape s : compoundShape.getShapes()) {
-                    System.out.println("in this compound shape: "+s.getClass());
-                }
-            }
-        }
         return shapeBuilder.getResult();
-        // return shapes;
     }
 }

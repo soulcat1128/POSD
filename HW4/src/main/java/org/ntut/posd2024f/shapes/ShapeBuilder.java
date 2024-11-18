@@ -6,18 +6,12 @@ import java.util.ArrayList;
 public class ShapeBuilder {
 
     public List<Shape> shapes = new ArrayList<Shape>();
-    private List<Shape> temp = new ArrayList<Shape>();
-    private List<Shape> csList = new ArrayList<Shape>();
-    private int cs_index;
+    public List<Shape> csList = new ArrayList<Shape>();
 
     public ShapeBuilder() {
     }
     
     public void buildCircle(double radius, String color, String text) {
-        System.out.println("buildCircle");
-        System.out.println("radius: "+radius);
-        System.out.println("color: "+color);
-        System.out.println("text: "+text);
         Shape circle = new Circle(radius);
         if (color != null) {
             circle = new ColoredShape(circle, color);
@@ -29,7 +23,7 @@ public class ShapeBuilder {
             circle = new TextedShape(circle, text);
         }
         if (csList.size() > 0) {
-            temp.add(circle);
+            csList.get(csList.size()-1).add(circle);
         }
         else {
             shapes.add(circle);
@@ -37,12 +31,6 @@ public class ShapeBuilder {
     }
 
     public void buildRectangle(double length, double width, String color, String text) {
-        System.out.println("buildRectangle");
-        System.out.println("length: "+length);
-        System.out.println("width: "+width);
-        System.out.println("color: "+color);
-        System.out.println("text: "+text);
-
         Shape rectangle = new Rectangle(length, width);
         if (color != null) {
             rectangle = new ColoredShape(rectangle, color);
@@ -55,7 +43,7 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
-            temp.add(rectangle);
+            csList.get(csList.size()-1).add(rectangle);
         }
         else {
             shapes.add(rectangle);
@@ -63,13 +51,6 @@ public class ShapeBuilder {
     }
 
     public void buildTriangle(List<TwoDimensionalVector> vectors, String color, String text) {
-        System.out.println("buildTriangle");
-        // System.out.println("vectors: "+vectors);
-        for(TwoDimensionalVector vector : vectors) {
-            System.out.println("vector: "+vector);
-        }
-        System.out.println("color: "+color);
-        System.out.println("text: "+text);
         Shape triangle = new Triangle(vectors);
         if (color != null) {
             triangle = new ColoredShape(triangle, color);
@@ -82,7 +63,7 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
-            temp.add(triangle);
+            csList.get(csList.size()-1).add(triangle);
         }
         else {
             shapes.add(triangle);
@@ -90,14 +71,6 @@ public class ShapeBuilder {
     }
 
     public void buildConvexPolygon(List<TwoDimensionalVector> vectors, String color, String text) {
-        System.out.println("buildConvexPolygon");
-        // System.out.println("vectors: "+vectors);
-        for(TwoDimensionalVector vector : vectors) {
-            System.out.println("vector: "+vector);
-        }
-        System.out.println("color: "+color);
-        System.out.println("text: "+text);
-
         Shape convexPolygon = new ConvexPolygon(vectors);
         if (color != null) {
             convexPolygon = new ColoredShape(convexPolygon, color);
@@ -110,7 +83,7 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
-            temp.add(convexPolygon);
+            csList.get(csList.size()-1).add(convexPolygon);
         }
         else {
             shapes.add(convexPolygon);
@@ -118,9 +91,6 @@ public class ShapeBuilder {
     }
 
     public void beginBuildCompoundShape(String color, String text) {    
-        System.out.println("beginBuildCompoundShape");
-        System.out.println("color: "+color);
-        System.out.println("text: "+text);
         Shape compoundShape = new CompoundShape();
         if (color != null) {
             compoundShape = new ColoredShape(compoundShape, color);
@@ -132,19 +102,11 @@ public class ShapeBuilder {
             compoundShape = new TextedShape(compoundShape, text);
         }
         csList.add(compoundShape);
-
-        // cs_index = csList.size() - 1;
     }
 
     public void endBuildCompoundShape() {
-        
-        // 把 cs_index 的 compound shape, 從後面開始直到 cs_index + 1, 依序加入到 cs_index 的 compound shape 裡, 並且移除已經被加入到 compound shape 裡的 shape
-        for (int i = 0; i < temp.size() ; i++) {
-            ((CompoundShape)csList.get(csList.size()-1)).add(temp.get(i));
-        }
-        temp.clear();
         if (csList.size() > 1) {
-            temp.add(csList.get(cs_index));
+            csList.get(csList.size() - 2).add(csList.get(csList.size() - 1));
             csList.remove(csList.size() - 1);
         }
         else {
@@ -152,25 +114,9 @@ public class ShapeBuilder {
             csList.clear();
         }
         
-        System.out.println("endBuildCompoundShape");
     }
 
     public List<Shape> getResult() {
-        for (Shape shape : shapes) {
-            if (shape instanceof CompoundShape) {
-                CompoundShape compoundShape = (CompoundShape) shape;
-                System.out.println("compound shape size: "+compoundShape.getShapes().size());
-                for (Shape s : compoundShape.getShapes()) {
-                    System.out.println(s.getClass());
-                    if (s instanceof CompoundShape)
-                    {
-                        Shape ss = ((CompoundShape)s).getShapes().get(0);
-                        System.out.println("inner"+ss.getClass());
-                    }
-                }
-            }
-        }
-        
         return shapes;
     }
 }

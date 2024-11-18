@@ -91,18 +91,67 @@ public class ShapeBuilderTest {
     //     sp.parse();
     //     List<Shape> shapes = sp.getResult();
     //     System.out.println("test start");
-    //     // System.out.println("shape size: "+shapes.size());
-    //     // System.out.println("shape's class"+shapes.get(0).getClass());
+
+    //     // for (Shape shape : shapes) {
+    //     //     if (shape instanceof CompoundShape) {
+    //     //         CompoundShape compoundShape = (CompoundShape) shape;
+    //     //         System.out.println("compound shape size: "+compoundShape.getShapes().size());
+    //     //         for (Shape s : compoundShape.getShapes()) {
+    //     //             System.out.println(s.getClass());
+    //     //             if (s instanceof CompoundShape)
+    //     //             {
+    //     //                 Shape ss = ((CompoundShape)s).getShapes().get(0);
+    //     //                 System.out.println(ss.getClass());
+    //     //             }
+    //     //         }
+    //     //     }
+    //     // }
+    // }
+
+    // @Test
+    // public void test_builder()
+    // {
+    //     ShapeBuilder sb = new ShapeBuilder();
+    //     sb.beginBuildCompoundShape(null, "This is a complex compound shape");
+    //     sb.beginBuildCompoundShape("RED", null);
+    //     List<TwoDimensionalVector> vectors = new ArrayList<TwoDimensionalVector>();
+    //     vectors.add(new TwoDimensionalVector(4, 0));
+    //     vectors.add(new TwoDimensionalVector(4, 3));
+    //     vectors.add(new TwoDimensionalVector(0, 3));
+    //     vectors.add(new TwoDimensionalVector(0, 0));
+
+    //     sb.buildConvexPolygon(vectors, null, "This is a convex polygon");
+    //     sb.buildCircle(3.0, null, null);
+    //     sb.beginBuildCompoundShape(null, null);
+    //     sb.buildCircle(3.0, "GREEN", null);
+    //     sb.endBuildCompoundShape();
+    //     sb.endBuildCompoundShape();
+    //     sb.buildRectangle(3.0, 3.0, null, null);
+    //     List<TwoDimensionalVector> vectors2 = new ArrayList<TwoDimensionalVector>();
+    //     vectors2.add(new TwoDimensionalVector(4, 0));
+    //     vectors2.add(new TwoDimensionalVector(4, 3));
+    //     vectors2.add(new TwoDimensionalVector(0, 3));
+    //     sb.buildTriangle(vectors2, null, "This is a triangle");
+    //     sb.beginBuildCompoundShape(null, null);
+    //     sb.endBuildCompoundShape();
+    //     sb.buildCircle(3.0, "BLUE", "This is a blue circle");
+    //     sb.endBuildCompoundShape();
+    //     List<Shape> shapes = sb.getResult();
+    //     System.out.println("test start");
     //     for (Shape shape : shapes) {
-    //         if (shape instanceof CompoundShape) {
-    //             CompoundShape compoundShape = (CompoundShape) shape;
-    //             System.out.println("compound shape size: "+compoundShape.getShapes().size());
-    //             for (Shape s : compoundShape.getShapes()) {
-    //                 System.out.println(s.getClass());
-    //                 if (s instanceof CompoundShape)
-    //                 {
-    //                     Shape ss = ((CompoundShape)s).getShapes().get(0);
-    //                     System.out.println(ss.getClass());
+    //         if (shape instanceof TextedShape) {
+    //             shape = ((TextedShape)shape).getShape();
+    //             if (shape instanceof CompoundShape)
+    //             {
+    //                 CompoundShape compoundShape = (CompoundShape) shape;
+    //                 System.out.println("compound shape size: "+compoundShape.getShapes().size());
+    //                 for (Shape s : compoundShape.getShapes()) {
+    //                     System.out.println(s.getClass());
+    //                     if (s instanceof TextedShape)
+    //                     {
+    //                         Shape ss = ((TextedShape)s).getShape();
+    //                         System.out.println(ss.getClass());
+    //                     }
     //                 }
     //             }
     //         }
