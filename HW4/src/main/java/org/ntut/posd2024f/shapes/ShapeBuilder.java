@@ -133,19 +133,19 @@ public class ShapeBuilder {
         }
         csList.add(compoundShape);
 
-        cs_index = csList.size() - 1;
+        // cs_index = csList.size() - 1;
     }
 
     public void endBuildCompoundShape() {
         
         // 把 cs_index 的 compound shape, 從後面開始直到 cs_index + 1, 依序加入到 cs_index 的 compound shape 裡, 並且移除已經被加入到 compound shape 裡的 shape
-        for (int i = temp.size() - 1; i > cs_index; i--) {
-            ((CompoundShape)csList.get(cs_index)).add(temp.get(i));
-            temp.remove(i);
+        for (int i = 0; i < temp.size() ; i++) {
+            ((CompoundShape)csList.get(csList.size()-1)).add(temp.get(i));
         }
+        temp.clear();
         if (csList.size() > 1) {
             temp.add(csList.get(cs_index));
-            cs_index = csList.size() - 1;
+            csList.remove(csList.size() - 1);
         }
         else {
             shapes.add(csList.get(0));
