@@ -6,18 +6,25 @@ import java.util.ArrayList;
 public class ShapeBuilder {
 
     public List<Shape> shapes = new ArrayList<Shape>();
+<<<<<<< HEAD
     private List<Shape> temp = new ArrayList<Shape>();
     private List<Shape> csList = new ArrayList<Shape>();
     private int cs_index;
+=======
+    public List<Shape> csList = new ArrayList<Shape>();
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
 
     public ShapeBuilder() {
     }
     
     public void buildCircle(double radius, String color, String text) {
+<<<<<<< HEAD
         System.out.println("buildCircle");
         System.out.println("radius: "+radius);
         System.out.println("color: "+color);
         System.out.println("text: "+text);
+=======
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         Shape circle = new Circle(radius);
         if (color != null) {
             circle = new ColoredShape(circle, color);
@@ -29,7 +36,11 @@ public class ShapeBuilder {
             circle = new TextedShape(circle, text);
         }
         if (csList.size() > 0) {
+<<<<<<< HEAD
             temp.add(circle);
+=======
+            csList.get(csList.size()-1).add(circle);
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         }
         else {
             shapes.add(circle);
@@ -37,12 +48,15 @@ public class ShapeBuilder {
     }
 
     public void buildRectangle(double length, double width, String color, String text) {
+<<<<<<< HEAD
         System.out.println("buildRectangle");
         System.out.println("length: "+length);
         System.out.println("width: "+width);
         System.out.println("color: "+color);
         System.out.println("text: "+text);
 
+=======
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         Shape rectangle = new Rectangle(length, width);
         if (color != null) {
             rectangle = new ColoredShape(rectangle, color);
@@ -55,7 +69,11 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
+<<<<<<< HEAD
             temp.add(rectangle);
+=======
+            csList.get(csList.size()-1).add(rectangle);
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         }
         else {
             shapes.add(rectangle);
@@ -63,6 +81,7 @@ public class ShapeBuilder {
     }
 
     public void buildTriangle(List<TwoDimensionalVector> vectors, String color, String text) {
+<<<<<<< HEAD
         System.out.println("buildTriangle");
         // System.out.println("vectors: "+vectors);
         for(TwoDimensionalVector vector : vectors) {
@@ -70,6 +89,8 @@ public class ShapeBuilder {
         }
         System.out.println("color: "+color);
         System.out.println("text: "+text);
+=======
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         Shape triangle = new Triangle(vectors);
         if (color != null) {
             triangle = new ColoredShape(triangle, color);
@@ -82,7 +103,11 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
+<<<<<<< HEAD
             temp.add(triangle);
+=======
+            csList.get(csList.size()-1).add(triangle);
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         }
         else {
             shapes.add(triangle);
@@ -90,6 +115,7 @@ public class ShapeBuilder {
     }
 
     public void buildConvexPolygon(List<TwoDimensionalVector> vectors, String color, String text) {
+<<<<<<< HEAD
         System.out.println("buildConvexPolygon");
         // System.out.println("vectors: "+vectors);
         for(TwoDimensionalVector vector : vectors) {
@@ -98,6 +124,8 @@ public class ShapeBuilder {
         System.out.println("color: "+color);
         System.out.println("text: "+text);
 
+=======
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         Shape convexPolygon = new ConvexPolygon(vectors);
         if (color != null) {
             convexPolygon = new ColoredShape(convexPolygon, color);
@@ -110,7 +138,11 @@ public class ShapeBuilder {
         }
 
         if (csList.size() > 0) {
+<<<<<<< HEAD
             temp.add(convexPolygon);
+=======
+            csList.get(csList.size()-1).add(convexPolygon);
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         }
         else {
             shapes.add(convexPolygon);
@@ -118,9 +150,12 @@ public class ShapeBuilder {
     }
 
     public void beginBuildCompoundShape(String color, String text) {    
+<<<<<<< HEAD
         System.out.println("beginBuildCompoundShape");
         System.out.println("color: "+color);
         System.out.println("text: "+text);
+=======
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         Shape compoundShape = new CompoundShape();
         if (color != null) {
             compoundShape = new ColoredShape(compoundShape, color);
@@ -132,6 +167,7 @@ public class ShapeBuilder {
             compoundShape = new TextedShape(compoundShape, text);
         }
         csList.add(compoundShape);
+<<<<<<< HEAD
         cs_index = csList.size() - 1;
 
     }
@@ -164,6 +200,23 @@ public class ShapeBuilder {
             }
         }
         
+=======
+    }
+
+    public void endBuildCompoundShape() {
+        if (csList.size() > 1) {
+            csList.get(csList.size() - 2).add(csList.get(csList.size() - 1));
+            csList.remove(csList.size() - 1);
+        }
+        else {
+            shapes.add(csList.get(0));
+            csList.clear();
+        }
+        
+    }
+
+    public List<Shape> getResult() {
+>>>>>>> 920604d28246e7ecbdb0e8b23e65704e00302a24
         return shapes;
     }
 }
