@@ -54,6 +54,7 @@ public class Triangle implements Shape {
 
     @Override
     public <T> void accept(Visitor<T> visitor) {
+        visitor.visitTriangle(this);
     }
 
     public List<TwoDimensionalVector> getVectors() {

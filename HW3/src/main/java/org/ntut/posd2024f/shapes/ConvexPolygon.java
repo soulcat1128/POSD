@@ -73,6 +73,7 @@ public class ConvexPolygon implements Shape {
 
     @Override
     public <T> void accept(Visitor<T> visitor) {
+        visitor.visitConvexPolygon(this);
     }
 
     public List<TwoDimensionalVector> getVectors() {

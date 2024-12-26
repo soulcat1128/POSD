@@ -20,6 +20,7 @@ public class Rectangle implements Shape {
 
     @Override
     public <T> void accept(Visitor<T> visitor) {
+        visitor.visitRectangle(this);
     }
 
     public double getLength() {

@@ -10,6 +10,10 @@ public class CompoundShape implements Shape {
     public CompoundShape() {
         this.shapes = new ArrayList<Shape>();
     }
+
+    public List<Shape> getShapes() {
+        return this.shapes;
+    }
     
     public double area() {
         double sum = 0;
@@ -58,5 +62,6 @@ public class CompoundShape implements Shape {
 
     @Override
     public <T> void accept(Visitor<T> visitor) {
+        visitor.visitCompoundShape(this);
     }
 }
