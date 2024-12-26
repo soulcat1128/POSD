@@ -1,0 +1,5 @@
+Circle 1.0
+Circle 0.5
+Rectangle 5 6
+Rectangle 0.5 1.5
+Triangle 3 4 5

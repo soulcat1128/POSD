@@ -11,10 +11,9 @@ public class HelloWorld {
 
 
     public static void main(String[] args) throws Exception{
-        double test = 1;
-        String a = "abc";
-        System.out.println(a.equals("abc"));
-        
+        StringBuilder test = new StringBuilder();
+        test.append("hello");
+        System.out.println(test.length());
         // test t = new test();
         // t.show();
         // String str = "lili";
